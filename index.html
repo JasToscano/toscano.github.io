@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jasmine Toscano | CS Portfolio</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Georgia', serif;
+      color: #2c2c2c;
+      background: #f9f9f7;
+      line-height: 1.75;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      background: #1a1a2e;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 56px;
+    }
+    nav .brand {
+      color: #e8e8e8;
+      font-size: 1rem;
+      font-family: 'Georgia', serif;
+      letter-spacing: 0.04em;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+    nav ul a {
+      color: #b0b8d4;
+      text-decoration: none;
+      font-family: Arial, sans-serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    nav ul a:hover { color: #ffffff; }
+
+    /* ── HERO ── */
+    .hero {
+      background: #1a1a2e;
+      color: #e8e8e8;
+      padding: 5rem 2.5rem 4rem;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 2.6rem;
+      font-weight: normal;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.5rem;
+    }
+    .hero .subtitle {
+      font-family: Arial, sans-serif;
+      font-size: 0.95rem;
+      color: #8892b0;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.8rem;
+    }
+    .hero p {
+      max-width: 640px;
+      margin: 0 auto 2rem;
+      color: #c0c8d8;
+      font-size: 1.05rem;
+    }
+    .hero-links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.6rem 1.5rem;
+      border-radius: 3px;
+      text-decoration: none;
+      font-family: Arial, sans-serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: #4a6fa5;
+      color: #ffffff;
+    }
+    .btn-primary:hover { background: #3a5a8a; }
+    .btn-secondary {
+      border: 1px solid #4a6fa5;
+      color: #8892b0;
+    }
+    .btn-secondary:hover { border-color: #8892b0; color: #ffffff; }
+
+    /* ── SECTIONS ── */
+    section {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+    section + section {
+      border-top: 1px solid #e4e4e0;
+    }
+    h2 {
+      font-size: 1.5rem;
+      font-weight: normal;
+      color: #1a1a2e;
+      margin-bottom: 0.35rem;
+    }
+    .section-label {
+      font-family: Arial, sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #4a6fa5;
+      margin-bottom: 1.5rem;
+    }
+    p { margin-bottom: 1rem; color: #3a3a3a; }
+
+    /* ── SKILLS PILLS ── */
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+    .skill {
+      background: #eef1f7;
+      color: #2c3e6e;
+      padding: 0.3rem 0.85rem;
+      border-radius: 2px;
+      font-family: Arial, sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── ENHANCEMENT CARDS ── */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .card {
+      background: #ffffff;
+      border: 1px solid #e4e4e0;
+      border-top: 3px solid #4a6fa5;
+      padding: 1.5rem;
+    }
+    .card-num {
+      font-family: Arial, sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #4a6fa5;
+      margin-bottom: 0.4rem;
+    }
+    .card h3 {
+      font-size: 1rem;
+      font-weight: normal;
+      color: #1a1a2e;
+      margin-bottom: 0.75rem;
+    }
+    .card p {
+      font-size: 0.88rem;
+      color: #555;
+      margin-bottom: 1rem;
+    }
+    .card-links {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .card-link {
+      font-family: Arial, sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #4a6fa5;
+      text-decoration: none;
+      border-bottom: 1px solid #4a6fa5;
+      padding-bottom: 1px;
+    }
+    .card-link:hover { color: #2c3e6e; border-color: #2c3e6e; }
+
+    /* ── OUTCOMES ── */
+    .outcomes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .outcome {
+      background: #ffffff;
+      border: 1px solid #e4e4e0;
+      padding: 1.1rem 1.2rem;
+    }
+    .outcome-num {
+      font-family: Arial, sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #4a6fa5;
+      margin-bottom: 0.3rem;
+    }
+    .outcome p {
+      font-size: 0.84rem;
+      color: #3a3a3a;
+      margin: 0;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #1a1a2e;
+      color: #8892b0;
+      text-align: center;
+      padding: 2.5rem;
+      font-family: Arial, sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+    }
+    footer a { color: #4a6fa5; text-decoration: none; }
+    footer a:hover { color: #8892b0; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="brand">Jasmine Toscano</span>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#review">Code Review</a></li>
+    <li><a href="#enhancements">Enhancements</a></li>
+    <li><a href="#outcomes">Outcomes</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Jasmine Toscano</h1>
+  <p class="subtitle">Computer Science &nbsp;·&nbsp; SNHU CS-499 Capstone &nbsp;·&nbsp; 2026</p>
+  <p>
+    Backend software engineer with expertise in Java, data structures, database
+    integration, and secure application design. This portfolio showcases the
+    CS-499 capstone project: a systematically enhanced Contact Service
+    demonstrating full-stack software engineering competency.
+  </p>
+  <div class="hero-links">
+    <a class="btn btn-primary" href="#enhancements">View Enhancements</a>
+    <a class="btn btn-secondary" href="https://github.com/JasToscano" target="_blank">GitHub Profile</a>
+  </div>
+</div>
+
+<!-- ABOUT / SELF-ASSESSMENT -->
+<section id="about">
+  <div class="section-label">Professional Self-Assessment</div>
+  <h2>About Me</h2>
+
+  <p>
+    I am a computer science student at Southern New Hampshire University completing
+    my Bachelor of Science in Computer Science. Over the past two and a half years,
+    I have built a strong foundation in software testing and quality assurance,
+    object-oriented design principles, data structures and algorithm optimization,
+    secure coding practices, and database integration.
+  </p>
+
+  <p>
+    The CS-499 capstone has been the culminating experience of my academic journey.
+    Starting from a basic contact management service built in CS-320, I systematically
+    enhanced it across three categories—software design and engineering, algorithms
+    and data structures, and databases—transforming it from a simple ArrayList-based
+    prototype into a production-ready application with professional architecture,
+    optimized performance, and enterprise-grade security.
+  </p>
+
+  <p>
+    Through the software design enhancement, I refactored the application into a
+    three-tier architecture with controller, service, and repository layers,
+    implemented the Repository and Singleton design patterns, built a centralized
+    validation service, and added professional logging throughout. Through the
+    algorithms enhancement, I replaced ArrayList storage with a HashMap, TreeMap,
+    and LinkedHashMap combination, achieving O(1) lookup performance and
+    demonstrating measurable 100x speed improvements through benchmarking.
+    Through the database enhancement, I integrated SQLite persistence using JDBC,
+    implemented prepared statements to prevent SQL injection, built an audit trail
+    for compliance and security monitoring, and added transaction management with
+    rollback capabilities.
+  </p>
+
+  <p>
+    Collaborating with teammates, communicating technical decisions clearly, and
+    approaching security as a first-class concern—not an afterthought—are
+    professional values that emerged through this process. I am seeking backend
+    software engineering roles where I can apply these skills to build reliable,
+    secure, and maintainable systems.
+  </p>
+
+  <div class="skills">
+    <span class="skill">Java</span>
+    <span class="skill">Data Structures</span>
+    <span class="skill">SQL / SQLite</span>
+    <span class="skill">JDBC</span>
+    <span class="skill">JUnit 5</span>
+    <span class="skill">Design Patterns</span>
+    <span class="skill">Algorithm Analysis</span>
+    <span class="skill">Secure Coding</span>
+    <span class="skill">Maven</span>
+    <span class="skill">IntelliJ IDEA</span>
+    <span class="skill">Git / GitHub</span>
+    <span class="skill">Android (CS-360)</span>
+  </div>
+</section>
+
+<!-- CODE REVIEW -->
+<section id="review">
+  <div class="section-label">Module 2</div>
+  <h2>Code Review</h2>
+  <p>
+    The code review examines the original CS-320 Contact Service artifact,
+    identifies existing strengths, documents areas for improvement across all
+    three enhancement categories, and outlines the enhancement plan. The review
+    follows the CS-499 Code Review Checklist and references industry standards
+    from SmartBear, OWASP, and Meta Engineering.
+  </p>
+  <p>
+    <strong>Artifact reviewed:</strong> Contact Service (Contact.java,
+    ContactService.java, ContactTest.java, ContactServiceTest.java)
+    &nbsp;·&nbsp; <strong>Duration:</strong> ~30 minutes
+  </p>
+  <!-- REPLACE THE href BELOW WITH YOUR ACTUAL VIDEO LINK -->
+  <a class="btn btn-primary" href="YOUR_VIDEO_LINK_HERE" target="_blank">Watch Code Review</a>
+</section>
+
+<!-- ENHANCEMENTS -->
+<section id="enhancements">
+  <div class="section-label">Three-Category Enhancement</div>
+  <h2>Enhanced Artifacts</h2>
+  <p>
+    The Contact Service was enhanced across all three required categories.
+    Each enhancement builds upon the previous, creating a cohesive,
+    production-ready application.
+  </p>
+
+  <div class="cards">
+
+    <!-- Category 1 -->
+    <div class="card">
+      <div class="card-num">Enhancement One</div>
+      <h3>Software Design &amp; Engineering</h3>
+      <p>
+        Refactored from flat structure to three-tier architecture.
+        Implemented Repository and Singleton patterns. Separated validation
+        logic, added professional logging, and organized code into
+        meaningful packages.
+      </p>
+      <p><strong>Key outcome:</strong> O(1) HashMap operations, SOLID principles, layered architecture.</p>
+      <div class="card-links">
+        <!-- REPLACE hrefs WITH YOUR ACTUAL GITHUB LINKS -->
+        <a class="card-link" href="https://github.com/JasToscano/JasToscano.github.io/blob/main/narratives/Milestone_Two_Narrative.docx" target="_blank">Narrative</a>
+        <a class="card-link" href="https://github.com/JasToscano/JasToscano.github.io/tree/main/enhancement1" target="_blank">Code</a>
+      </div>
+    </div>
+
+    <!-- Category 2 -->
+    <div class="card">
+      <div class="card-num">Enhancement Two</div>
+      <h3>Algorithms &amp; Data Structures</h3>
+      <p>
+        Integrated TreeMap for sorted access and range queries, and
+        LinkedHashMap as an LRU cache with automatic eviction. Benchmarked
+        ArrayList vs. HashMap performance across dataset sizes.
+      </p>
+      <p><strong>Key outcome:</strong> 100× faster lookup, sorted access, caching strategy.</p>
+      <div class="card-links">
+        <a class="card-link" href="https://github.com/JasToscano/JasToscano.github.io/blob/main/narratives/Milestone_Three_Narrative.docx" target="_blank">Narrative</a>
+        <a class="card-link" href="https://github.com/JasToscano/JasToscano.github.io/tree/main/enhancement2" target="_blank">Code</a>
+      </div>
+    </div>
+
+    <!-- Category 3 -->
+    <div class="card">
+      <div class="card-num">Enhancement Three</div>
+      <h3>Databases</h3>
+      <p>
+        Integrated SQLite database via JDBC for persistent storage. Used
+        prepared statements to prevent SQL injection, built a full audit
+        trail, and implemented transaction management with rollback.
+      </p>
+      <p><strong>Key outcome:</strong> Production-ready persistence, ACID compliance, security-first design.</p>
+      <div class="card-links">
+        <a class="card-link" href="https://github.com/JasToscano/JasToscano.github.io/blob/main/narratives/Milestone_Four_Narrative.docx" target="_blank">Narrative</a>
+        <a class="card-link" href="https://github.com/JasToscano/JasToscano.github.io/tree/main/enhancement3" target="_blank">Code</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- COURSE OUTCOMES -->
+<section id="outcomes">
+  <div class="section-label">Program Competencies</div>
+  <h2>Course Outcomes Demonstrated</h2>
+  <p>All five CS-499 program outcomes are addressed across the three enhancement categories.</p>
+  <div class="outcomes">
+    <div class="outcome">
+      <div class="outcome-num">Outcome 1</div>
+      <p>Collaborative environments — layered architecture, documentation, modular design.</p>
+    </div>
+    <div class="outcome">
+      <div class="outcome-num">Outcome 2</div>
+      <p>Professional communications — three narratives, code review, journals, JavaDoc.</p>
+    </div>
+    <div class="outcome">
+      <div class="outcome-num">Outcome 3</div>
+      <p>Algorithmic principles — Big O analysis, data structure trade-offs, 3NF schema design.</p>
+    </div>
+    <div class="outcome">
+      <div class="outcome-num">Outcome 4</div>
+      <p>Innovative techniques — design patterns, Java Collections, JDBC, professional practices.</p>
+    </div>
+    <div class="outcome">
+      <div class="outcome-num">Outcome 5</div>
+      <p>Security mindset — input validation, SQL injection prevention, audit logging, ACID transactions.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Get In Touch</div>
+  <h2>Contact</h2>
+  <p>
+    Open to backend software engineering opportunities and collaborations.
+    Feel free to reach out through GitHub or connect on LinkedIn.
+  </p>
+  <!-- REPLACE WITH YOUR ACTUAL LINKS -->
+  <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;">
+    <a class="btn btn-primary" href="https://github.com/JasToscano" target="_blank">GitHub</a>
+    <a class="btn btn-secondary" href="https://linkedin.com/in/jasmine-toscano" target="_blank">LinkedIn</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    &copy; 2026 Jasmine Toscano &nbsp;·&nbsp;
+    CS-499 Computer Science Capstone, SNHU &nbsp;·&nbsp;
+    <a href="https://github.com/JasToscano" target="_blank">GitHub</a>
+  </p>
+</footer>
+
+</body>
+</html>
